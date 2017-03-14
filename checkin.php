@@ -108,6 +108,8 @@ class CHECKIN {
             <div id="venues-list" class="venues-list">
             </div>
         </div>
+		<div id="venue-selection-container" class="venue-selection-container">
+		</div>
 
         <?php
     }
