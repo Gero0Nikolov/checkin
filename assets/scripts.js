@@ -70,9 +70,11 @@ function searchVenue( venueTown, venue ) {
 						</div>\
 						";
 
+						jQuery( "#venue-id" ).val( jQuery( this ).attr( "id" ).split( "-" )[1] );
 						jQuery( "#venue-search-container" ).hide();
 						jQuery( "#venue-selection-container" ).show().append( view_ );
 						jQuery( "#selected-venue-"+ jQuery( this ).attr( "id" ).split( "-" )[1] ).on( "click", function(){
+							jQuery( "#venue-id" ).val( "" );
 							jQuery( "#venue-selection-container" ).empty().hide();
 							jQuery( "#venue-search-container" ).show();
 						} );
@@ -84,4 +86,41 @@ function searchVenue( venueTown, venue ) {
             }
     	});
     }
+}
+
+function getVenue( venueID ) {
+	url = "https://api.foursquare.com/v2/venues/"+ venueID +"?client_id="+ FOURSQUARE_VENUE_SEARCH_API_CID +"&client_secret="+ FOURSQUARE_VENUE_SEARCH_API_CS +"&v=20170303";
+	jQuery.ajax({
+		url: url,
+		success: function( response ) {
+			console.log( response );
+			venue_ = response.response.venue;
+			venue_city = venue_.location.city !== undefined ? venue_.location.city : "Unknown";
+			venue_address = venue_.location.address !== undefined ? venue_.location.address : "Unknown";
+			venue_category = venue_.categories[0] !== undefined ? venue_.categories[0].name : "Unknown";
+
+			view_ = "\
+			<div id='selected-venue-"+ venueID +"' class='selected-venue'>\
+				<h1 class='title'>"+ venue_.name +"</h1>\
+				<div class='metas'>\
+					<span class='meta'>"+ venue_city +"</span>\
+					<span class='dotter'>&bull;</span>\
+					<span class='meta'>"+ venue_address +"</span>\
+					<span class='dotter'>&bull;</span>\
+					<span class='meta'>"+ venue_category +"</span>\
+				</div>\
+			</div>\
+			";
+
+			jQuery( "#venue-id" ).val( venueID );
+			jQuery( "#venue-search-container" ).hide();
+			jQuery( "#venue-selection-container" ).show().append( view_ );
+			jQuery( "#selected-venue-"+ venueID ).on( "click", function(){
+				jQuery( "#venue-id" ).val( "" );
+				jQuery( "#venue-selection-container" ).empty().hide();
+				jQuery( "#venue-search-container" ).show();
+			} );
+		},
+		error: function( response ) { console.log( response ); }
+	});
 }

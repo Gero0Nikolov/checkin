@@ -17,8 +17,18 @@ class CHECKIN {
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_js' ), "1.0.0", "true" );
         add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_css' ) );
 
+		//Add scripts and styles for the Front-end part
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_front_JS' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'register_front_CSS' ) );
+
         // Register the Checkin Fields Metabox for the Checkins CPT
         add_action( "add_meta_boxes", array( $this, "register_checkin_metabox" ), 10, 2 );
+
+		// Register On Update event
+        add_action( "save_post", array( $this, "action_on_update" ) );
+
+		// Add Checkins single page template
+		add_filter( "single_template", array( $this, "checkins_single_page" ) );
     }
 
     function __desctruct(){}
@@ -75,6 +85,15 @@ class CHECKIN {
 		wp_enqueue_style( 'checkin-admin-css', plugins_url( '/assets/style.css', __FILE__ ), array(), '1.0', 'screen' );
 	}
 
+	//Register frontend JS
+	function register_front_JS() {
+		wp_enqueue_script( 'ful-front-js', plugins_url( '/assets/front.js' , __FILE__ ), array('jquery'), '1.0', true );
+	}
+	//Register frontend CSS
+	function register_front_CSS() {
+		wp_enqueue_style( 'ful-front-css', plugins_url( '/assets/front.css', __FILE__ ), array(), '1.0', 'screen' );
+	}
+
     /*
     *   Function name: register_checkin_metabox
     *   Function arguments: NONE [ $post_type, $post - NOT USED ]
@@ -97,9 +116,13 @@ class CHECKIN {
     *   Function purpose: This function is used to build the Checkin Fields name metabox.
     */
     function build_checkin_fields_metabox() {
+		global $post;
+		$venue_id = get_post_meta( $post->ID, "venue_id", true );
+		$hidden_ = !isset( $venue_id ) || empty( $venue_id ) ? "" : "hidden";
+		$visible_ = !isset( $venue_id ) || empty( $venue_id ) ? "hidden" : "visible";
         ?>
 
-        <div id="venue-search-container" class="venue-search-container">
+        <div id="venue-search-container" class="venue-search-container <?php echo $hidden_; ?>">
             <div id="venue-search-box" class="venue-search-box">
                 <input type="text" id="town-search" class="search" placeholder="City name">
                 <input type="text" id="venue-search" class="search" placeholder="Place name or just &quot;hookah&quot;?">
@@ -107,12 +130,49 @@ class CHECKIN {
             </div>
             <div id="venues-list" class="venues-list">
             </div>
-        </div>
-		<div id="venue-selection-container" class="venue-selection-container">
+			<input id="venue-id" name="venue_id" type="hidden" />
 		</div>
+		<div id="venue-selection-container" class="venue-selection-container <?php echo $visible_; ?>">
+		</div>
+		<?php if ( isset( $venue_id ) && !empty( $venue_id ) ) { ?>
+		<script type="text/javascript">
+		jQuery( document ).ready(function(){
+			getVenue( "<?php echo $venue_id; ?>" );
+		});
+		</script>
+		<?php } ?>
 
         <?php
     }
+
+	/*
+	*	Function name: action_on_update
+	*	Function arguments: $post_id [ INT ] (required)
+	*	Function purpose: This function is used to update the current venue.
+	*/
+	function action_on_update( $post_id ) {
+		$venue_id = isset( $_POST[ "venue_id" ] ) && !empty( trim( $_POST[ "venue_id" ] ) ) ? sanitize_text_field( trim( $_POST[ "venue_id" ] ) ) : "";
+
+		$current_venue_id = get_post_meta( $post_id, "venue_id", true );
+		if ( !empty( $current_venue_id ) ) { update_post_meta( $post_id, "venue_id", $venue_id ); }
+		else { add_post_meta( $post_id, "venue_id", $venue_id ); }
+	}
+
+	/*
+	*	Function name: checkins_single_page
+	*	Function arguments: $template [ STRING ]
+	*	Function purpose: This function loads the specific view for the single checkin page.
+	*/
+	function checkins_single_page( $template ) {
+		global $post;
+
+		$single_template = get_template_directory() ."/single.php";
+		if ($post->post_type == 'checkin') {
+			$single_template = plugin_dir_path( __FILE__ ) . '/templates/single-checkin.php';
+		}
+
+		return $single_template;
+	}
 }
 
 $_CHECKIN_ = new CHECKIN;

@@ -41,6 +41,9 @@
   .venue-selection-container .selected-venue:hover, .venue-selection-container .selected-venue:active {
     border-color: #e74c3c; }
 
+.visible {
+  display: block; }
+
 @-webkit-keyframes loading {
   0% {
     transform: scale(1); }

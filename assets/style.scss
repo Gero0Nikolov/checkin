@@ -58,6 +58,8 @@
 	}
 }
 
+.visible { display: block; }
+
 @-webkit-keyframes loading {
 	0% { transform: scale(1); }
 	25% { transform: scale(0.8); }
