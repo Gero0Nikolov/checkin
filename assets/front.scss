@@ -1,0 +1,47 @@
+.post-header {
+    padding: 2em;
+    background-color: #eee;
+    background-size: cover;
+    background-position: center;
+
+    .header {
+        font-size: 3em;
+        text-align: left;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 0 0.25em;
+    }
+
+    .sub-header {
+        font-size: 2em;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 0 0.25em;
+        display: inline-block;
+        min-width: 25%;
+    }
+}
+
+.post-meta {
+    display: block;
+    padding: 0.5em;
+    text-align: center;
+    background: #f9f9f9;
+
+    .meta {
+        display: inline-block;
+        padding: 0 0.5em;
+    }
+
+    .dotter {
+        display: inline-block;
+        color: #777;
+    }
+}
+
+.post-content {
+    display: block;
+    padding: 0.5em;
+    background: #fff;
+    line-height: 200%;
+}
