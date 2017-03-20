@@ -19,7 +19,7 @@ get_header();
 	<div id="post-meta" class="post-meta">
 		<span class="meta"><a href="<?php echo get_author_posts_url( $post_->post_author ); ?>"><?php echo get_the_author( $post_->post_authors ); ?></a></span>
 		<span class="dotter">&bull;</span>
-		<spa class="meta"><?php echo $post_->post_date; ?></span>
+		<spa class="meta"><?php echo date( "H:i d-M-Y", strtotime( $post_->post_date ) ); ?></span>
 	</div>
 	<div id="post-content" class="post-content">
 		<?php echo $post_->post_content; ?>
