@@ -39,9 +39,15 @@
     }
 }
 
-.post-content {
+.post-content,
+.post-venue-container {
     display: block;
     padding: 0.5em;
     background: #fff;
     line-height: 200%;
+
+    .meta, .dotter { display: inline-block; vertical-align: middle; }
+    .dotter { margin: 0 0.25em; }
 }
+
+.post-venue-container { border-top: 1px solid #eee; }

@@ -29,10 +29,22 @@
     display: inline-block;
     color: #777; }
 
-.post-content {
+.post-content,
+.post-venue-container {
   display: block;
   padding: 0.5em;
   background: #fff;
   line-height: 200%; }
+  .post-content .meta, .post-content .dotter,
+  .post-venue-container .meta,
+  .post-venue-container .dotter {
+    display: inline-block;
+    vertical-align: middle; }
+  .post-content .dotter,
+  .post-venue-container .dotter {
+    margin: 0 0.25em; }
+
+.post-venue-container {
+  border-top: 1px solid #eee; }
 
 /*# sourceMappingURL=front.css.map */

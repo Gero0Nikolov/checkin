@@ -24,6 +24,9 @@ get_header();
 	<div id="post-content" class="post-content">
 		<?php echo $post_->post_content; ?>
 	</div>
-	<div id="post-venue-container" venue-id="<?php echo $venue_id; ?>"></div>
+	<div id="post-venue-container" class="post-venue-container" venue-id="<?php echo $venue_id; ?>"></div>
 </div>
+<script type="text/javascript">
+jQuery( document ).ready(function(){ getVenue( "<?php echo $venue_id; ?>" ); });
+</script>
 <?php get_footer(); ?>
