@@ -13,7 +13,7 @@ This plugin will allow you to share your trips with your readers.
 == Description ==
 This plugin is very, very simple.
 
-It represents the Swarm place checkin place in your personal blog!
+It represents the Swarm app place checkin in your personal blog!
 
 With just a few simple clicks you can create new checkins from your Dashboard and start sharing a new kind of amazing stories!
 
