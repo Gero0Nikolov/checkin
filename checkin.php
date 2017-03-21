@@ -29,6 +29,9 @@ class CHECKIN {
 
 		// Add Checkins single page template
 		add_filter( "single_template", array( $this, "checkins_single_page" ) );
+
+        // Add the shortcode which is going to show the last checkin
+		add_action( 'init', array( $this, 'register_shortcode' ) );
     }
 
     function __desctruct(){}
@@ -173,6 +176,26 @@ class CHECKIN {
 
 		return $single_template;
 	}
+
+    function register_shortcode() { add_shortcode( "last_checkin", array( $this, "checkin" ) ); }
+
+    function checkin( $atts ) {
+        $args = array(
+            "posts_per_page" => -1,
+            "post_status" => "publish",
+            "post_type" => "checkin",
+            "orderby" => "ID",
+            "order" => "DESC"
+        );
+        $checkin_ = get_post( $args );
+
+        echo "
+        <a href='". get_permalink( $checkin_->ID ) ."' class='venue-anchor'>
+            <div class='venue-caller' style='background-image: url(". get_the_post_thumbnail_url( $checkin_->ID, "full" ) .");'>
+            </div>
+        </a>
+        ";
+    }
 }
 
 $_CHECKIN_ = new CHECKIN;
