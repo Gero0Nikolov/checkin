@@ -181,19 +181,29 @@ class CHECKIN {
 
     function checkin( $atts ) {
         $args = array(
-            "posts_per_page" => -1,
+            "posts_per_page" => 1,
             "post_status" => "publish",
             "post_type" => "checkin",
             "orderby" => "ID",
             "order" => "DESC"
         );
-        $checkin_ = get_post( $args );
+        $checkins_ = get_posts( $args );
+        $checkin_ = $checkins_[0];
 
-        echo "
+        $venue_id = get_post_meta( $checkin_->ID, "venue_id", true );
+
+        return "
         <a href='". get_permalink( $checkin_->ID ) ."' class='venue-anchor'>
-            <div class='venue-caller' style='background-image: url(". get_the_post_thumbnail_url( $checkin_->ID, "full" ) .");'>
+            <div id='post-header' class='venue-caller' style='background-image: url(". get_the_post_thumbnail_url( $checkin_->ID, "full" ) .");'>
+                <div class='overlay'>
+                    <span class='header'>". $checkin_->post_title ."</span>
+                    <span id='venue' class='sub-header'>@</span>
+                </div>
             </div>
         </a>
+        <script type='text/javascript'>
+            jQuery( document ).ready(function(){ getVenue( '". $venue_id ."' ); });
+        </script>
         ";
     }
 }

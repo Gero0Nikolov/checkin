@@ -56,3 +56,48 @@
 }
 
 .post-venue-container { border-top: 1px solid #eee; }
+
+.venue-anchor {
+    display: block;
+    outline: 0;
+    text-decoration: none;
+    border: none !important;
+
+    .venue-caller {
+        display: block;
+        background-size: cover;
+        background-position: center;
+
+        .overlay {
+            display: block;
+            padding: 2em;
+            background: rgba(0, 0, 0, 0.5);
+
+            -webkit-transition: all 0.25s ease-in-out;
+    	    -moz-transition: all 0.25s ease-in-out;
+    	    -o-transition: all 0.25s ease-in-out;
+    	    transition: all 0.25s ease-in-out;
+
+            .header {
+                display: block;
+                text-align: center;
+                font-size: 2em;
+                color: #fff;
+            }
+
+            .sub-header {
+                display: block;
+                text-align: center;
+                color: #fff;
+                font-size: 1.5em;
+            }
+        }
+    }
+
+    &:hover,
+    &:active {
+        .venue-caller {
+            .overlay { background: rgba(0, 0, 0, 0.85); }
+        }
+    }
+}
