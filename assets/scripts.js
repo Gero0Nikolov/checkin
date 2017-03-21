@@ -92,7 +92,7 @@ function getVenue( venueID ) {
 	url = "https://api.foursquare.com/v2/venues/"+ venueID +"?client_id="+ FOURSQUARE_VENUE_SEARCH_API_CID +"&client_secret="+ FOURSQUARE_VENUE_SEARCH_API_CS +"&v=20170303";
 	jQuery.ajax({
 		url: url,
-		success: function( response ) {			
+		success: function( response ) {
 			venue_ = response.response.venue;
 			venue_city = venue_.location.city !== undefined ? venue_.location.city : "Unknown";
 			venue_address = venue_.location.address !== undefined ? venue_.location.address : "Unknown";

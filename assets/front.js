@@ -38,3 +38,17 @@ function getVenue( venueID ) {
 		error: function( response ) { console.log( response ); }
 	});
 }
+
+function getVenuePlace( venueID, container ) {
+    url = "https://api.foursquare.com/v2/venues/"+ venueID +"?client_id="+ FOURSQUARE_VENUE_SEARCH_API_CID +"&client_secret="+ FOURSQUARE_VENUE_SEARCH_API_CS +"&v=20170303";
+	jQuery.ajax({
+		url: url,
+		success: function( response ) {
+			venue_ = response.response.venue;
+            jQuery( container ).each(function(){
+				jQuery( this ).html( "@"+ venue_.name );
+			});
+        },
+        error: function ( response ) { console.log( response ); }
+    });
+}

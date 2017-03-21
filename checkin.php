@@ -197,12 +197,12 @@ class CHECKIN {
             <div id='post-header' class='venue-caller' style='background-image: url(". get_the_post_thumbnail_url( $checkin_->ID, "full" ) .");'>
                 <div class='overlay'>
                     <span class='header'>". $checkin_->post_title ."</span>
-                    <span id='venue' class='sub-header'>@</span>
+                    <span id='venue' class='venue'>@</span>
                 </div>
             </div>
         </a>
         <script type='text/javascript'>
-            jQuery( document ).ready(function(){ getVenue( '". $venue_id ."' ); });
+            jQuery( document ).ready(function(){ getVenuePlace( '". $venue_id ."', '#venue' ); });
         </script>
         ";
     }
