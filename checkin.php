@@ -177,8 +177,18 @@ class CHECKIN {
 		return $single_template;
 	}
 
+    /*
+    *   Function name: register_shortcode
+    *   Function arguments: NONE
+    *   Function purpose: This function is used to register the [last_checkin] shortcode.
+    */
     function register_shortcode() { add_shortcode( "last_checkin", array( $this, "checkin" ) ); }
 
+    /*
+    *   Function name: checkin
+    *   Function arguments: $atts [MIXED_ARRAY] [NOT_USED]
+    *   Function purpose: This function shows the last checkin in a container.
+    */
     function checkin( $atts ) {
         $args = array(
             "posts_per_page" => 1,
