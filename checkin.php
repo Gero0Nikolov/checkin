@@ -156,7 +156,8 @@ class CHECKIN {
 	function action_on_update( $post_id ) {
 		$venue_id = isset( $_POST[ "venue_id" ] ) && !empty( trim( $_POST[ "venue_id" ] ) ) ? sanitize_text_field( trim( $_POST[ "venue_id" ] ) ) : "";
 
-		$current_venue_id = get_post_meta( $post_id, "venue_id", true );
+		$current_venue_id = get_post_meta( $post_id, "venue_id", false );
+
 		if ( !empty( $current_venue_id ) ) { update_post_meta( $post_id, "venue_id", $venue_id ); }
 		else { add_post_meta( $post_id, "venue_id", $venue_id ); }
 	}
