@@ -9,6 +9,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin will allow you to share your trips with your readers.
+Based on the Foursquare and Swarm venues API.
 
 == Description ==
 This plugin is very, very simple.
