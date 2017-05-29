@@ -22,7 +22,7 @@ get_header();
 		<spa class="meta"><?php echo date( "H:i d-M-Y", strtotime( $post_->post_date ) ); ?></span>
 	</div>
 	<div id="post-content" class="post-content">
-		<?php echo $post_->post_content; ?>
+		<?php echo nl2br( $post_->post_content ); ?>
 	</div>
 	<div id="post-venue-container" class="post-venue-container" venue-id="<?php echo $venue_id; ?>"></div>
 </div>
